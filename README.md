@@ -1,11 +1,12 @@
 # Stego, a DFT analysis tool
 
-A python package that helps with organizing and analzing DFT results, compting thermodynamic properties, analyzing DOS and more things to come.
+A python package that helps with organizing and analyzing DFT results, computing thermodynamic properties, 
+analyzing DOS and more things to come.
 
 
 #### Requirements
-* Python_ 3.6 or later
-* NumPy_ (base N-dimensional array package)
+* Python 3.6 or later
+* NumPy
 
 #### Basic example 
 Loading and adding a molecule
