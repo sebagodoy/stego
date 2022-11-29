@@ -51,7 +51,7 @@ N100.Plot(("32", "-"), PlotDown=True, AmplifyFactor=10, Color='r')
 N100.SumDOS(("d30-35",'d+'),[(str(i), 'd+') for i in range(30,36)])
 N100.SumDOS(("d30-35",'d-'),[(str(i), 'd-') for i in range(30,36)])
 
-N100.Plot(("d30-35", "+"), AmplifyFactor=5, Color='g') 
-N100.Plot(("d30-35", "-"), PlotDown=True, AmplifyFactor=5, Color='g')
+N100.Plot(("d30-35", "d+"), AmplifyFactor=5, Color='g') 
+N100.Plot(("d30-35", "d-"), PlotDown=True, AmplifyFactor=5, Color='g')
 
 ```
