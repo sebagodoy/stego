@@ -109,10 +109,10 @@ class DOS:
         # total (atomic DOS)
         if Pol:
             # valence layer
-            if Orb == "spd" and not ml:
-                self.SumDOS(("total", "d+"), [(str(iAt + 1), "d+") for iAt in range(self.NAtoms)])
-                self.SumDOS(("total", "d-"), [(str(iAt + 1), "d-") for iAt in range(self.NAtoms)])
-                self.SumDOS(("total", "d+-"), [("total", "d+"), ("total", "d-")])
+            # if Orb == "spd" and not ml:
+            #     self.SumDOS(("total", "d+"), [(str(iAt + 1), "d+") for iAt in range(self.NAtoms)])
+            #     self.SumDOS(("total", "d-"), [(str(iAt + 1), "d-") for iAt in range(self.NAtoms)])
+            #     self.SumDOS(("total", "d+-"), [("total", "d+"), ("total", "d-")])
             self.SumDOS(('total', '+'),
                         [(str(i + 1), j) for j in columnclass.values() for i in range(self.NAtoms) if '+' in j])
             self.SumDOS(('total', '-'),
@@ -125,8 +125,8 @@ class DOS:
             self.SumDOS((str(iAt + 1), 'sum'), [(str(iAt + 1), k) for k in columnclass.values()])
             if Pol:
                 # valence layer
-                if Orb == "spd" and not ml:
-                    self.SumDOS((str(iAt+1), "d+-"), [(str(iAt + 1), 'd+'), (str(iAt + 1), 'd-')])
+                # if Orb == "spd" and not ml:
+                #     self.SumDOS((str(iAt+1), "d+-"), [(str(iAt + 1), 'd+'), (str(iAt + 1), 'd-')])
                 # sum all +
                 self.SumDOS((str(iAt + 1), '+'), [(str(iAt + 1), k) for k in columnclass.values() if '+' in k])
                 # sum all -
@@ -429,6 +429,7 @@ class DOS:
 
         FermiCorrected = kwargs.get('FermiCorrected', True)
         PlotDown = kwargs.get('PlotDown', False)
+        PlotVert = kwargs.get('PlotVert', False)
         AmplifyFactor = kwargs.get('AmplifyFactor', 1.)
         MoveY = kwargs.get('MoveY', 0.)
         MoveX = kwargs.get('MoveX', 0.)
@@ -442,30 +443,39 @@ class DOS:
         ColorFill = kwargs.get('ColorFill', Color)
 
         # Prepare correction and factor
+        Corr = 0.
         if FermiCorrected:
             Corr = self.Fermi
-        else:
-            Corr = 0.
+
         if PlotDown:
             Fact = -AmplifyFactor
         else:
             Fact = AmplifyFactor
 
         # Plot
+        if PlotVert:
+            xplotlist = [k * Fact + MoveX for k in self.DOS[Index[0]][Index[1]]]
+            yplotlist = [i - Corr + MoveY for i in self.Elist]
+        else:
+            xplotlist = [i - Corr + MoveX for i in self.Elist]
+            yplotlist = [k * Fact + MoveY for k in self.DOS[Index[0]][Index[1]]]
+
         if not LineStyle == "noline":
-            plt.plot([i - Corr + MoveX for i in self.Elist],
-                     [k * Fact + MoveY for k in self.DOS[Index[0]][Index[1]]],
+            plt.plot(xplotlist, yplotlist,
                      color=Color, linestyle=LineStyle, linewidth=LineWidth, alpha=LineAlpha)
 
         if Filled:
-            plt.fill_between([i - Corr +MoveX for i in self.Elist],
-                             MoveY,
-                             [k * Fact + MoveY for k in self.DOS[Index[0]][Index[1]]],
-                             alpha=AlphaFill, color=ColorFill)
+            if PlotVert:
+                plt.fill_betweenx(yplotlist, MoveX, xplotlist, alpha=AlphaFill, color=ColorFill)
+            else:
+                plt.fill_between(xplotlist, MoveY, yplotlist, alpha=AlphaFill, color=ColorFill)
 
 
 def plot_divide_femi(**kwargs):
-    plt.axvline(0., linestyle=kwargs.get("ls","solid"), color="k", linewidth=.5)
+    if kwargs.get('PlotVert', False):
+        plt.axhline(0., linestyle=kwargs.get("ls", "solid"), color="k", linewidth=.5)
+    else:
+        plt.axvline(0., linestyle=kwargs.get("ls","solid"), color="k", linewidth=.5)
 
 
 def add_size_bar(**kwargs):
