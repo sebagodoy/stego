@@ -31,7 +31,7 @@ plt.sca(axs[1])
 ds.plot_divide_femi()
 plt.yticks([])
 
-MoveYCO = iter([y*1 for x in [-i for i in range(9)] for y in (x,)*2])
+MoveYCO = iter([y*1 for x in [-i for i in range(9)] for y in (x,)*3])
 
 MLineK = {'Color':'k',   'Filled':True, 'LineStyle': 'solid', 'LineWidth':.4, 'AlphaLine':1.}
 OLine = {'Color':'r',  'Filled':False, 'LineStyle': 'solid', 'LineWidth':.8, 'Alphaline':1.}
@@ -41,12 +41,15 @@ CLine = {'Color':'k',  'Filled':False, 'LineStyle': 'solid', 'LineWidth':.8, 'Al
 
 N100R23d.Plot(("66", "+"), AmplifyFactor=N100R23d.TotalFactor * .1, **OLine, MoveY=next(MoveYCO))
 N100R23d.Plot(("66", "-"), AmplifyFactor=N100R23d.TotalFactor * .1, **OLine, MoveY=next(MoveYCO), PlotDown=True)
+plt.text(.5, next(MoveYCO)+.1, "$O^{(1)}$", color='r')
 
 N100R23d.Plot(("65", "+"), AmplifyFactor=N100R23d.TotalFactor * .1, **CLine, MoveY=next(MoveYCO))
 N100R23d.Plot(("65", "-"), AmplifyFactor=N100R23d.TotalFactor * .1, **CLine, MoveY=next(MoveYCO), PlotDown=True)
+plt.text(.5, next(MoveYCO)+.1, "$C$", color='k')
 
 N100R23d.Plot(("67", "+"), AmplifyFactor=N100R23d.TotalFactor * .1, **OLine2, MoveY=next(MoveYCO))
 N100R23d.Plot(("67", "-"), AmplifyFactor=N100R23d.TotalFactor * .1, **OLine2, MoveY=next(MoveYCO), PlotDown=True)
+plt.text(.5, next(MoveYCO)+.1, "$O^{(2)}$", color='r')
 
 N100R23d.WhatCurves()
 
@@ -56,7 +59,7 @@ N100R23d.Plot(("total", "+"), AmplifyFactor=N100R23d.TotalFactor * .08, **MLineK
 N100R23d.Plot(("total", "-"), AmplifyFactor=N100R23d.TotalFactor * .08, **MLineK, MoveY=asd, PlotDown=True)
 
 
-plt.ylim([-7.5,2])
+plt.ylim([-7.5,2.5])
 
 
 
@@ -91,14 +94,14 @@ fig.text(0.5, 0.02, 'Energy (eV) corrected to the fermi level',
          fontsize=10, ha='center', va='bottom', fontweight='bold')
 
 
-nametext = iter(['a)', 'd)', 'b)', 'e)','c)', 'f)'])
+nametext = iter([r'a) Ni(100)/$*CO_2$', r'd) Ni(100)/$*CO_2\rightarrow *CO^{(2)}+O^{(1)}$', r'b) Ni(100)/$*CO+O$'])
 for jax in axs:
     [x.set_linewidth(1.5) for x in jax.spines.values()]
     plt.sca(jax)
     plt.annotate(next(nametext), xy=(.02,.95), xycoords='axes fraction',
              fontsize=12, ha='left', va='top', fontweight='bold')
 
-plt.savefig("/home/seba/Thesis/Results_CO2_DOS/DOS_CO_surf_raw.png", bbox_inches ="tight", dpi=600)
+plt.savefig("./DOS_CO2_disc_test.png", bbox_inches ="tight", dpi=600)
 
 plt.show()
 
