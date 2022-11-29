@@ -47,7 +47,7 @@ N100R23d.Plot(("total", "-"), AmplifyFactor=N100R23d.TotalFactor * .08, **MLineK
 # -------------------------------------------------------------------------------------------------------
 # Final touches to plot
 
-plt.title(r'TS: N(100)/$*CO_2\rightarrow *CO^{(2)}+*O^{(1)}$', fontweight='bold')
+plt.title(r'TS: Ni(100)/$*CO_2\rightarrow *CO^{(2)}+*O^{(1)}$', fontweight='bold')
 plt.ylabel('Energy- $e_f$, (eV)', labelpad=.05, fontweight='bold')
 plt.xlabel('DOS, arbitrary units', fontweight='bold')
 ds.plot_divide_femi(PlotVert=True)
