@@ -123,7 +123,7 @@ def Srot(Geom, RotT, Tin, SymmNum):
     # RotT	=	Rotational temperature / K, 1 for diatomics 3 for everything else.
     # Tin	=	Temperature / K
     # SymmNum =	Rotational symmetry number (1 for HCl, 2 for H2, 3 for NH3, 12 for CH4)
-    print("Rot Sym number = " + str(SymmNum))
+    # print("Rot Sym number = " + str(SymmNum))
     qR = qRot(Geom, RotT, Tin, SymmNum)
     if 'Diatomic' in Geom:
         return kb * (log(qR) + 1.) / eV2J  # /[eV/K]
@@ -138,7 +138,7 @@ def Svib(FreqIn, Tin):
     Sv = 0
     for iFq in FreqIn:
         rotTonT = hh * cc * iFq * 100. / (kb * Tin)  # /[Adim.]
-        print('(Rot T)/T = ' + str(rotTonT))
+        # print('(Rot T)/T = ' + str(rotTonT))
         frac = rotTonT / (exp(rotTonT) - 1.)  # /[Adim.]
         lo = log(1. - exp(-rotTonT))  # /[Adim.]
         Sv += kb * (frac - lo) / eV2J  # /[eV/K]

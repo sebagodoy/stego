@@ -94,7 +94,7 @@ class SingleItem:
 		outH = self.Enthalpy(**kwargs)
 		outS = self.Entropy(**kwargs)
 		out = outH - kwargs.get('T') * outS
-		if kwargs.get("Report", True):
+		if kwargs.get("Report", False):
 			CodeStatus(f"For [{self.Name}], G/eV="+str(out)+", H/eV="+str(outH)+", S/(eV/K)="+str(outS))
 		return out
 	def E0ZPVE(self, **kwargs):
@@ -218,7 +218,7 @@ class AdsSurf(SingleItem):
 		except:
 			CodeErrorExit('Can\'t compute ZPVE without freqs.')
 		# Compute
-		print("ZPVE(eV)" + str(thermo.ZPVE(self.FreqR)))
+		# print("ZPVE(eV)" + str(thermo.ZPVE(self.FreqR)))
 		return thermo.ZPVE(self.FreqR) #/[eV]
 	def Evib(self, **kwargs):
 		# Check input
@@ -228,7 +228,7 @@ class AdsSurf(SingleItem):
 		except:
 			CodeErrorExit('Needs real frequencies to compute E vib.')
 		# Compute
-		print("Evib(eV)=" + str(thermo.Evib(self.FreqR, iT)))
+		# print("Evib(eV)=" + str(thermo.Evib(self.FreqR, iT)))
 		return thermo.Evib(self.FreqR, iT)
 	def Eel(self, **kwargs):
 		# Bottom of well reference
@@ -252,7 +252,7 @@ class AdsSurf(SingleItem):
 		except:
 			CodeErrorExit('Need real frequencies list [cm-1] and T [K] to compute Svib')
 		# Compute
-		print("Svib(eV/K)=" + str(thermo.Svib(self.FreqR, iT)))
+		# print("Svib(eV/K)=" + str(thermo.Svib(self.FreqR, iT)))
 		return thermo.Svib(self.FreqR, iT) #/[eV/K]
 	def Sel(self, **kwargs):
 		return 0.
@@ -262,7 +262,7 @@ class AdsSurf(SingleItem):
 	def Internal(self, **kwargs):
 		# Etras = Erot = Eel = 0
 		# Internal = E0 + Evib
-		print("E0(ev)="+str(self.E0))
+		# print("E0(ev)="+str(self.E0))
 		return self.E0 + self.ZPVE(**kwargs) + self.Evib(**kwargs)
 	def Enthalpy(self, **kwargs):
 		# No pressure effect: dont include kbT
@@ -333,7 +333,7 @@ class Gas(SingleItem):
 		except:
 			CodeErrorExit('Needs T to compute E traslational')
 		# Compute
-		print("Etras(eV)=" + str(thermo.Etras(iT)))
+		# print("Etras(eV)=" + str(thermo.Etras(iT)))
 		return thermo.Etras(iT)	#/[eV]
 
 	def Erot(self, **kwargs):
@@ -344,7 +344,7 @@ class Gas(SingleItem):
 		except:
 			CodeErrorExit('Needs T and Geometry property to compute E rot')
 		# Compute
-		print("Erot(eV)=" + str(thermo.Erot(self.Geometry, iT)))
+		# print("Erot(eV)=" + str(thermo.Erot(self.Geometry, iT)))
 		return thermo.Erot(self.Geometry, iT)
 
 	def ZPVE(self, **kwargs):
@@ -354,7 +354,7 @@ class Gas(SingleItem):
 		except:
 			CodeErrorExit('Can\'t compute ZPVE without freqs.')
 		# Compute
-		print('ZPVE(eV)=' + str(thermo.ZPVE(self.FreqR)))
+		# print('ZPVE(eV)=' + str(thermo.ZPVE(self.FreqR)))
 		return thermo.ZPVE(self.FreqR) #/[eV]
 
 	def Evib(self, **kwargs):
@@ -365,7 +365,7 @@ class Gas(SingleItem):
 		except:
 			CodeErrorExit('Needs real frequencies to compute E vib.')
 		# Compute
-		print('Ev(eV)=' + str(thermo.Evib(self.FreqR, iT)))
+		# print('Ev(eV)=' + str(thermo.Evib(self.FreqR, iT)))
 		return thermo.Evib(self.FreqR, iT)
 
 	def Eel(self, **kwargs):
@@ -385,7 +385,7 @@ class Gas(SingleItem):
 		except:
 			CodeErrorExit('Need atomic mass [AMU=g/mol], T [K] and P[bar] to compute q tras and then Stras')
 		# Compute
-		print('Stras(eV)='+str(kb*(np.log(self.q_tras(**kwargs))+5./2.)/eV2J))
+		# print('Stras(eV)='+str(kb*(np.log(self.q_tras(**kwargs))+5./2.)/eV2J))
 		return kb*(np.log(self.q_tras(**kwargs))+5./2.)/eV2J	#/[eV/K]
 
 	def Srot(self, **kwargs):
@@ -398,7 +398,7 @@ class Gas(SingleItem):
 		except:
 			CodeErrorExit('Need rotational temperatures[K], symmetry, temperature[K] and geometry for Srot of gas')
 		# Compute
-		print('Srot(eV)=' + str(thermo.Srot(self.Geometry, self.RotTemp, iT, self.RotSym)))
+		# print('Srot(eV)=' + str(thermo.Srot(self.Geometry, self.RotTemp, iT, self.RotSym)))
 		return thermo.Srot(self.Geometry, self.RotTemp, iT, self.RotSym)
 
 	def Svib(self, **kwargs):
@@ -409,7 +409,7 @@ class Gas(SingleItem):
 		except:
 			CodeErrorExit('Need real frequencies list [cm-1] and T [K] to compute Svib')
 		# Compute
-		print("Svib(eV)=" + str(thermo.Svib(self.FreqR, iT)))
+		# print("Svib(eV)=" + str(thermo.Svib(self.FreqR, iT)))
 		return thermo.Svib(self.FreqR, iT) #/[eV/K]
 
 	def Sel(self, **kwargs):
