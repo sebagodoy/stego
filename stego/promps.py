@@ -1,5 +1,5 @@
 #### Functions that help promp
-
+print('>> Loading promp functions ', end='...')
 
 #### Code execution functions
 def CodeStatus(inStr, **kwargs):

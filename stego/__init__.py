@@ -1,9 +1,11 @@
-import stego.defaultsrc
-from .promps import *
-from .parameters import *
-from .Plot import *
-from .thermo import *
-from .items import *
-from .kinetics import *
+# import stego.defaultsrc
+# from stego.promps import *
+# from stego.parameters import *
+# from stego.Plot import *
+# from stego.thermo import *
+# from stego.items import *
+# from stego.kinetics import *
 
-print("Loaded all module IDEX contents. You can organize plot, compute thermo and kinetics now.")
+# motiv = ['Go ahead fancypants!']
+#
+# print("Loaded all module IDEX contents. Happy codding now!\n")

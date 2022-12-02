@@ -1,7 +1,7 @@
 # Packages
-from .promps import CodeErrorExit
+from stego.promps import CodeErrorExit
 
-from .parameters import Nav, kb, hh, cc, eV2J
+from stego.parameters import Nav, kb, hh, cc, eV2J
 from numpy import pi, exp, prod, log
 
 print('>> Loading thermodynamic module', end='...')
@@ -35,8 +35,7 @@ def qRot(Geom, RotT, Tin, SymmNum):
     elif 'Poliatomic' in Geom:
         if not len(RotT) == 3:
             CodeErrorExit('Poliatomic molecule needs three rotational temperatures to compute qRot')
-        Prod_RotT = prod(RotT)
-        return (pi * (Tin ** 3) / ((SymmNum ** 2) * Prod_RotT)) ** 0.5
+        return (pi * (Tin ** 3) / ((SymmNum ** 2) * prod(RotT))) ** 0.5 #/adim
     else:
         CodeErrorExit('Geometry not recognized')
 
@@ -63,6 +62,7 @@ def qEl(*args, **kwargs):
 
 ########################################################################################################################
 # Energetic contributions by partition
+# default output in eV
 
 def Etras(inT):
 	# Translational energy [eV]
@@ -107,6 +107,7 @@ def Erot(Geometry:str, Tin: float):
 
 ########################################################################################################################
 # Entropic contributions by partition
+# default output in eV/K
 
 def Stras(iinM, iinT, iinP):
     # Translational entropy [eV/K]
@@ -114,7 +115,7 @@ def Stras(iinM, iinT, iinP):
     # inT = Temperature		/[K]
     # inP = Pressure		/[bar]
     qT = qTras(iinM, iinT, iinP)
-    return kb * (log(qT) + 5. / 2.) / eV2J  # /[eV]
+    return kb * (log(qT) + 5. / 2.) / eV2J  # /[eV/K]
 
 
 def Srot(Geom, RotT, Tin, SymmNum):

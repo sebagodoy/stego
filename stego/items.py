@@ -1,9 +1,10 @@
 # Packages
 import numpy as np
-
-from stego.parameters import eV2J, kb
 import stego.thermo as thermo
-from .promps import CodeStatus, CodeErrorExit
+from stego.parameters import eV2J, kb
+from stego.promps import CodeStatus, CodeErrorExit
+
+
 
 
 
